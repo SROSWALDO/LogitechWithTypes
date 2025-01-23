@@ -5,7 +5,11 @@ import search from "../assets/search.svg";
 import user from "../assets/user.svg";
 import cart from "../assets/cart.svg";
 
-const Header = () => {
+type HeaderProps = {
+  showDrawer:() => void
+}
+
+const Header = ({showDrawer}: HeaderProps) => {
   return (
     <header className="bg-[#32176D] w-full h-[530px] relative">
         <nav className="flex px-40 pt-5 justify-between z-[100] relative">
@@ -38,7 +42,7 @@ const Header = () => {
             </div>
             <img className="mx-2 cursor-pointer " src={user} alt="user" />
         
-                <img className="ml-2 cursor-pointer " src={cart} alt="cart" />
+            <img onClick={showDrawer} className="ml-2 cursor-pointer " src={cart} alt="cart" />
              
           </div>
         </nav>
