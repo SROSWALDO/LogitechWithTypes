@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+
+@theme {
+    --font-poppins: Poppins, sans-serif;
+}
+
+.ant-carousel .slick-prev,
+.ant-carousel .slick-next {
+  color: #000000; /* Cambia esto al color deseado */
+  font-size: 20px; /* Ajusta el tamaño si lo necesitas */
+}
+
+.ant-carousel .slick-dots li button {
+    background-color: #0f0f0f; /* Cambia al color deseado */
+  }
+  
+  .ant-carousel .slick-dots li.slick-active button {
+    background-color: #000000; /* Color cuando el punto está activo */
+  }
+  
+
+
