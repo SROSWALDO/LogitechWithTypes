@@ -1,5 +1,5 @@
 export type Product = {
-    id: string;
+    id: number;
     name: string;
     price: number;
     image: string;
@@ -14,3 +14,11 @@ export type Product = {
         stock: number;
     }[];
 }
+
+export type ProductId = Pick<Product, 'id'>['id']
+
+export type CartItem = {
+    productId: number;
+    color: string;
+    quantity: number;
+  };

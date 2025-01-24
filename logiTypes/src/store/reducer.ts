@@ -1,5 +1,5 @@
 interface Product {
-    id: string;
+    id: number;
     name: string;
     image: string;
     description: string;
@@ -43,7 +43,17 @@ export const reducer = (state: State = initialState, action: Action): State => {
             ...state,
             products: action.payload,
             products_copy: action.payload
-        }  
+        }
+        case "ADD_TO_CART":
+            return {
+                ...state,
+                cart: action.payload
+            }
+        case "GET_PRODUCT":
+            return {
+                ...state,
+                product: action.payload
+            }      
         default:
             return state
     }

@@ -6,13 +6,24 @@ import { getProducts } from "../store/actions"
 import { AppDispatch, RootState } from "../store/store"
 import ProductDetail from "./ProductDetail"
 import { Drawer, Pagination } from "antd"
+import ProductModal from "./ProductModal"
 
 
 const Home = () => {
 
   const dispatch = useDispatch<AppDispatch>()
   const products = useSelector((state: RootState ) => state.products);
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const productsForPage = 6;
   const startIndex = (page - 1) * productsForPage
@@ -44,9 +55,11 @@ const Home = () => {
 
       <div className="flex flex-wrap justify-center w-full mb-5">
       {productsPaginates.map(product => (
-        <ProductDetail key={product.id} product={product} />
+        <ProductDetail key={product.id} product={product} showModal={showModal} />
       ))}
       </div>
+
+      <ProductModal isModalOpen={isModalOpen} handleCancel={handleCancel}  />
 
       <Drawer onClose={onClose} open={open} >
         <p>Hola</p>
