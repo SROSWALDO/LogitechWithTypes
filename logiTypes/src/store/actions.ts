@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { Dispatch } from "redux";
-import { CartItem, ProductId } from "../types";
+import { CartItem, ProductColor, ProductId } from "../types";
 
 
 const URL = "http://localhost:5000";
@@ -26,6 +26,15 @@ export const getProduct = (id: ProductId ) => async (dispatch: Dispatch) => {
     }
 }
 
+export const getCart = () => async (dispatch: Dispatch) => {
+    try {
+        const response = await axios.get(`${URL}/cart`)
+        dispatch({ type: "GET_CART", payload: response.data })
+    } catch (error:any) {
+        console.error(error.message);
+    }
+}
+
 export const addToCart = (productData: CartItem) => async (dispatch: Dispatch) => {
     try {
         const response = await axios.post(`${URL}/cart`, productData);
@@ -34,5 +43,16 @@ export const addToCart = (productData: CartItem) => async (dispatch: Dispatch) =
     } catch (error: any) {
         console.error(error?.response?.data?.message || error.message || error);
         return { success: false }; 
+    }
+}
+
+export const deleteProduct = (id: ProductId, color: ProductColor) => async (dispatch: Dispatch) => {
+    try {
+        await axios.delete(`${URL}/cart/${id}`, {
+            data: { color }
+        })
+        dispatch({ type: "DELETE_PRODUCT", payload:{ productId: id, color: color } })
+    } catch (error:any) {
+        console.error(error.message);
     }
 }

@@ -5,8 +5,9 @@ import { useEffect, useState } from "react"
 import { getProducts } from "../store/actions"
 import { AppDispatch, RootState } from "../store/store"
 import ProductDetail from "./ProductDetail"
-import { Drawer, Pagination } from "antd"
+import { Pagination } from "antd"
 import ProductModal from "./ProductModal"
+import Cart from "./Cart"
 
 
 const Home = () => {
@@ -61,9 +62,7 @@ const Home = () => {
 
       <ProductModal isModalOpen={isModalOpen} handleCancel={handleCancel}  />
 
-      <Drawer onClose={onClose} open={open} >
-        <p>Hola</p>
-      </Drawer>
+      <Cart open={open} onClose={onClose}  />
 
       <Pagination style={{marginBottom: "15px"}} align="center" onChange={handlePageChange} total={products.length} pageSize={productsForPage} current={page}  />
 

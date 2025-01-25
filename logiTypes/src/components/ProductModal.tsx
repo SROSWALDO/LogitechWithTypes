@@ -64,7 +64,7 @@ const ProductModal = ({ handleCancel, isModalOpen }: ProductModalProps) => {
         <Carousel arrows={true}>
           {product?.images?.map((image, index) => (
             <img
-              className="w-[300px] h-[300px] object-cover pl-5 "
+              className="w-[300px] h-[300px] object-contain pl-5 "
               key={index}
               src={image.url}
               alt=""

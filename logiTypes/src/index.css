@@ -15,9 +15,13 @@
     background-color: #0f0f0f; /* Cambia al color deseado */
   }
   
-  .ant-carousel .slick-dots li.slick-active button {
+.ant-carousel .slick-dots li.slick-active button {
     background-color: #000000; /* Color cuando el punto está activo */
-  }
+}
+
+.ant-drawer-body {
+  padding: 0px;
+}
   
 
 

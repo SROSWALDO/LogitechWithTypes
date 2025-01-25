@@ -17,6 +17,13 @@ export type Product = {
 
 export type ProductId = Pick<Product, 'id'>['id']
 
+export type ProductColor = Pick<Product, 'color'>['color']
+
+export type ProductDelete = {
+    productId: number;
+    color: string;
+}
+
 export type CartItem = {
     productId: number;
     color: string;

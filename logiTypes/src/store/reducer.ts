@@ -15,11 +15,20 @@ interface Product {
     }[];
 }
 
+interface CartProduct {
+    productId: number;
+    name: string;
+    image: string;
+    color: string;
+    quantity: number;
+    price: number;
+}
+
 interface State {
     products: Product[];
     products_copy: Product[];
     product: Product | null;
-    cart: Product[]
+    cart: CartProduct[]
 }
 
 const initialState : State = {
@@ -29,8 +38,8 @@ const initialState : State = {
     cart:[]
 }
 
-type Action =  { type: "GET_PRODUCTS"; payload: Product[] } | { type: "GET_PRODUCT"; payload: Product } | { type: "ADD_TO_CART"; payload: Product[] } | { type: "GET_CART"; payload: Product[] }
-    | { type: "DELETE_PRODUCT"; payload: { productId: string; color: string } }
+type Action =  { type: "GET_PRODUCTS"; payload: Product[] } | { type: "GET_PRODUCT"; payload: Product } | { type: "ADD_TO_CART"; payload: CartProduct[] } | { type: "GET_CART"; payload: CartProduct[] }
+    | { type: "DELETE_PRODUCT"; payload: { productId: number; color: string } }
     | { type: "EDIT_PRODUCT"; payload: Product }
     | { type: "FILTER_BY_CATEGORY"; payload: Product[] }
     | { type: "ORDER_PRICE"; payload: Product[] }; 
@@ -53,7 +62,17 @@ export const reducer = (state: State = initialState, action: Action): State => {
             return {
                 ...state,
                 product: action.payload
-            }      
+            }
+        case "GET_CART":
+            return {
+                ...state,
+                cart: action.payload
+            }
+        case "DELETE_PRODUCT":
+            return {
+                ...state,
+                cart: state.cart.filter(product => !(product.productId === action.payload.productId && product.color === action.payload.color ) )
+            }              
         default:
             return state
     }
