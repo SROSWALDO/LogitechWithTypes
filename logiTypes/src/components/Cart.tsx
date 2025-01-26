@@ -71,7 +71,7 @@ const Cart = ({ open, onClose, deleteProductAlert }: CartProps) => {
           <div className="max-h-[495px] overflow-y-auto shadow-md mb-1 ">
             {cart.map((product) => (
               <div
-                className="flex my-5 items-center"
+                className="flex my-3 items-center"
                 key={product.productId + product.color}
               >
                 <div>
