@@ -24,8 +24,23 @@ export type ProductDelete = {
     color: string;
 }
 
+export type ProductToEdit = {
+    color: string;
+    quantity: number;
+}
+
+export type ProductEdited = {
+    productId: number;
+    color: string;
+    quantity: number;
+}
+
+
+
 export type CartItem = {
     productId: number;
     color: string;
     quantity: number;
   };
+
+

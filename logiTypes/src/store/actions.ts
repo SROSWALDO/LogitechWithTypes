@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { Dispatch } from "redux";
-import { CartItem, ProductColor, ProductId } from "../types";
+import { CartItem, ProductColor, ProductId, ProductToEdit } from "../types";
 
 
 const URL = "http://localhost:5000";
@@ -52,6 +52,15 @@ export const deleteProduct = (id: ProductId, color: ProductColor) => async (disp
             data: { color }
         })
         dispatch({ type: "DELETE_PRODUCT", payload:{ productId: id, color: color } })
+    } catch (error:any) {
+        console.error(error.message);
+    }
+}
+
+export const editProduct = (id: ProductId, productData: ProductToEdit ) => async (dispatch: Dispatch) => {
+    try {
+        const response = await axios.put(`${URL}/cart/${id}`, productData);
+        dispatch({ type: "EDIT_PRODUCT", payload: response.data })
     } catch (error:any) {
         console.error(error.message);
     }

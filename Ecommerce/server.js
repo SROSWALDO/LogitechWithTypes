@@ -519,7 +519,6 @@ app.put("/cart/:productId", (req, res) => {
       .json({ error: "Producto no encontrado en el carrito" });
   }
 
-  // Buscar el producto en la lista de productos
   const product = products.find((p) => p.id === productId);
   if (!product) {
     return res.status(404).json({ error: "Producto no encontrado" });

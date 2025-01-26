@@ -1,3 +1,4 @@
+
 interface Product {
     id: number;
     name: string;
@@ -40,7 +41,7 @@ const initialState : State = {
 
 type Action =  { type: "GET_PRODUCTS"; payload: Product[] } | { type: "GET_PRODUCT"; payload: Product } | { type: "ADD_TO_CART"; payload: CartProduct[] } | { type: "GET_CART"; payload: CartProduct[] }
     | { type: "DELETE_PRODUCT"; payload: { productId: number; color: string } }
-    | { type: "EDIT_PRODUCT"; payload: Product }
+    | { type: "EDIT_PRODUCT"; payload: CartProduct[] }
     | { type: "FILTER_BY_CATEGORY"; payload: Product[] }
     | { type: "ORDER_PRICE"; payload: Product[] }; 
 
@@ -72,7 +73,12 @@ export const reducer = (state: State = initialState, action: Action): State => {
             return {
                 ...state,
                 cart: state.cart.filter(product => !(product.productId === action.payload.productId && product.color === action.payload.color ) )
-            }              
+            }
+        case "EDIT_PRODUCT":
+            return {
+                ...state,
+                cart: action.payload
+            }                  
         default:
             return state
     }
