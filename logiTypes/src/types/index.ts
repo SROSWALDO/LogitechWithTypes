@@ -35,8 +35,6 @@ export type ProductEdited = {
     quantity: number;
 }
 
-
-
 export type CartItem = {
     productId: number;
     color: string;

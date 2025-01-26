@@ -9,9 +9,11 @@ import { addToCart } from "../store/actions";
 type ProductModalProps = {
   handleCancel: () => void;
   isModalOpen: boolean;
+  success: () => void;
+  errorAlert: () => void;
 };
 
-const ProductModal = ({ handleCancel, isModalOpen }: ProductModalProps) => {
+const ProductModal = ({ handleCancel, isModalOpen, success, errorAlert }: ProductModalProps) => {
   const product = useSelector((state: RootState) => state.product);
 
   const dispatch = useAppDispatch()
@@ -53,8 +55,10 @@ const ProductModal = ({ handleCancel, isModalOpen }: ProductModalProps) => {
         color: "",
         quantity: 1
       })
+      success()
     } else {
       console.error("Error al agregar al carrito")
+      errorAlert()
     }
   };
 

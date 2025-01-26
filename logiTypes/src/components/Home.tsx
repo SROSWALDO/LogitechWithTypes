@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { getProducts } from "../store/actions"
 import { AppDispatch, RootState } from "../store/store"
 import ProductDetail from "./ProductDetail"
-import { Pagination } from "antd"
+import { message, Pagination } from "antd"
 import ProductModal from "./ProductModal"
 import Cart from "./Cart"
 
@@ -15,6 +15,29 @@ const Home = () => {
   const dispatch = useDispatch<AppDispatch>()
   const products = useSelector((state: RootState ) => state.products);
   const [page, setPage] = useState(1);
+
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Producto agregado correctamente!',
+    });
+  };
+
+  const deleteProduct = () => {
+    messageApi.open({
+      type: 'info',
+      content: 'Producto eliminado correctamente!'
+    })
+  }
+
+  const errorAlert = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'Error al agregar el product, falta de stock!'
+    })
+  }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -50,6 +73,7 @@ const Home = () => {
 
   return (
     <div className="w-full min-h-screen font-poppins ">
+      {contextHolder}
       <Navbar/>
 
       <Header showDrawer={showDrawer}/>
@@ -60,9 +84,9 @@ const Home = () => {
       ))}
       </div>
 
-      <ProductModal isModalOpen={isModalOpen} handleCancel={handleCancel}  />
+      <ProductModal isModalOpen={isModalOpen} handleCancel={handleCancel} success={success} errorAlert={errorAlert}  />
 
-      <Cart open={open} onClose={onClose}  />
+      <Cart open={open} onClose={onClose} deleteProductAlert={deleteProduct}  />
 
       <Pagination style={{marginBottom: "15px"}} align="center" onChange={handlePageChange} total={products.length} pageSize={productsForPage} current={page}  />
 

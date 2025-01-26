@@ -61,7 +61,9 @@ export const editProduct = (id: ProductId, productData: ProductToEdit ) => async
     try {
         const response = await axios.put(`${URL}/cart/${id}`, productData);
         dispatch({ type: "EDIT_PRODUCT", payload: response.data })
+        return{ success: true }
     } catch (error:any) {
         console.error(error.message);
+        return{ success: false }
     }
 }

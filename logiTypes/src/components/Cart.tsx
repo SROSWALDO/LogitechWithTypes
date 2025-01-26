@@ -10,15 +10,17 @@ import { ProductDelete, ProductEdited } from "../types";
 type CartProps = {
   open: boolean;
   onClose: () => void;
+  deleteProductAlert: () => void;
 };
 
-const Cart = ({ open, onClose }: CartProps) => {
+const Cart = ({ open, onClose, deleteProductAlert }: CartProps) => {
   const cart = useSelector((state: RootState) => state.cart);
 
   const dispatch = useAppDispatch();
 
   const handleDeleteProduct = (product: ProductDelete) => {
     dispatch(deleteProduct(product.productId, product.color));
+    deleteProductAlert()
   };
 
   const handleLessQuantity = (product:ProductEdited) => {
@@ -123,7 +125,10 @@ const Cart = ({ open, onClose }: CartProps) => {
       </div>
       ): (
         <div>
-          <h1 className="text-2xl font-semibold mt-5 ">No hay productos en el carrito...</h1>
+          <h1 className="text-base font-semibold mt-5 text-center ">Tu carro está vacío. Empezar a comprar ahora</h1>
+          <div className="flex justify-center mt-5">
+          <button onClick={onClose} className="bg-black font-semibold text-white w-full py-5 cursor-pointer hover:bg-black/90">CERRAR</button>
+          </div>
         </div>
       )}
     </Drawer>
