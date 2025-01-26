@@ -89,7 +89,7 @@ const ProductModal = ({ handleCancel, isModalOpen, success, errorAlert }: Produc
               }}
               key={index}
               title={variant.color}
-              className={`w-6 h-6 rounded-full border border-black mx-1 cursor-pointer ${productData.color === variant.color ? 'border border-blue-500' : '' } `}
+              className={`w-6 h-6 rounded-full border border-black mx-1 cursor-pointer ${productData.color === variant.color ? 'border-[3px] border-blue-500 ' : '' } `}
             ></div>
           ))}
         </div>
@@ -100,7 +100,7 @@ const ProductModal = ({ handleCancel, isModalOpen, success, errorAlert }: Produc
         </div>
         <div className="flex justify-between px-2 items-center mt-5">
           <p className="text-black font-semibold text-lg">${product?.price}</p>
-          <button onClick={handleAddToCart} className="bg-black p-2 text-white px-6 rounded ">Buy</button>
+          <button onClick={handleAddToCart} className="bg-black p-2 text-white px-6 rounded cursor-pointer hover:bg-black/80">Buy</button>
         </div>
       </div>
     </Modal>
