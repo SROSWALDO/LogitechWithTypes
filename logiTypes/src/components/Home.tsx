@@ -5,9 +5,10 @@ import { useEffect, useState } from "react"
 import { getProducts } from "../store/actions"
 import { AppDispatch, RootState } from "../store/store"
 import ProductDetail from "./ProductDetail"
-import { message, Pagination } from "antd"
+import { message, Pagination, Popover } from "antd"
 import ProductModal from "./ProductModal"
 import Cart from "./Cart"
+import Filters from "./Filters"
 
 
 const Home = () => {
@@ -77,6 +78,16 @@ const Home = () => {
       <Navbar/>
 
       <Header showDrawer={showDrawer}/>
+
+      <div className="mt-5 flex justify-end mr-28 " > 
+        <Popover placement="bottomLeft" content={
+          <Filters/>
+        } >
+          <div className="w-[60px] border-b-2 ">
+          <h1 className="text-xl">Filters</h1>
+          </div>
+        </Popover>
+      </div>
 
       <div className="flex flex-wrap justify-center w-full mb-5">
       {productsPaginates.map(product => (

@@ -2,6 +2,7 @@
 import axios from "axios";
 import { Dispatch } from "redux";
 import { CartItem, ProductColor, ProductId, ProductToEdit } from "../types";
+import { RootState } from "./store";
 
 
 const URL = "http://localhost:5000";
@@ -65,5 +66,32 @@ export const editProduct = (id: ProductId, productData: ProductToEdit ) => async
     } catch (error:any) {
         console.error(error.message);
         return{ success: false }
+    }
+}
+
+export const filterByCategory = (category: string) => (dispatch: Dispatch, getState: () => RootState) => {
+    try {
+        const { products_copy } = getState();
+        const productsToFilter = [...products_copy]
+        const productsFiltered = category ? productsToFilter.filter(product => product.category === category) : productsToFilter;
+        dispatch({ type: "FILTER_BY_CATEGORY", payload: productsFiltered })
+    } catch (error:any) {
+        console.error(error.message);
+    }
+}
+
+export const orderByPrice = (order: "asc" | "desc") => (dispatch: Dispatch, getState: () => RootState) => {
+    try {
+        const { products_copy } = getState();
+        const productsToOrder = [...products_copy]
+        if(order === "desc") {
+            productsToOrder.sort((a,b) => a.price - b.price )
+        } else if(order === "asc") {
+            productsToOrder.sort((a,b) => b.price - a.price)
+        }
+
+        dispatch({ type: "ORDER_PRICE", payload: productsToOrder })
+    } catch (error:any) {
+        console.error(error.message);
     }
 }

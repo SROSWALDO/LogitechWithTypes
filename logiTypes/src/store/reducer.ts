@@ -78,7 +78,17 @@ export const reducer = (state: State = initialState, action: Action): State => {
             return {
                 ...state,
                 cart: action.payload
-            }                  
+            }
+        case "FILTER_BY_CATEGORY":
+            return {
+                ...state,
+                products: action.payload
+            }
+        case "ORDER_PRICE":
+            return {
+                ...state,
+                products: action.payload
+            }                          
         default:
             return state
     }
