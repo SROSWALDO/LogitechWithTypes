@@ -75,9 +75,9 @@ const Home = () => {
   return (
     <div className="w-full min-h-screen font-poppins ">
       {contextHolder}
-      <Navbar/>
+      {/* <Navbar/> */}
 
-      <Header showDrawer={showDrawer}/>
+      {/* <Header showDrawer={showDrawer}/> */}
 
       <div className="mt-5 flex justify-end mr-28 " > 
         <Popover placement="bottomLeft" content={
