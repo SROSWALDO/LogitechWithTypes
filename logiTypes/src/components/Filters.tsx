@@ -17,21 +17,21 @@ const Filters = () => {
     }
 
     const handleOrderPrice = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const order = e.target.value;
+        const order = e.target.value as "asc" | "desc";
         dispatch(orderByPrice(order))
     }
 
   return (
-    <div className="flex flex-col w-[250px] " >
-      <select onChange={handleFilterCategory} >
+    <div className="flex flex-col w-[250px] py-3 " >
+      <select className="p-1" onChange={handleFilterCategory} >
         <option value="">Filter by category</option>
         {categories.map((category, index) => (
-            <option key={index} value={category}>{category}</option>
+            <option key={index} value={category}>{category.charAt(0).toUpperCase() + category.slice(1) }</option>
         ))}
 
       </select>
 
-      <select onChange={handleOrderPrice} >
+      <select className="p-1 mt-3" onChange={handleOrderPrice} >
         <option value="">Filter by price</option>
         <option value="asc">Ascendente</option>
         <option value="desc">Descendente</option>
