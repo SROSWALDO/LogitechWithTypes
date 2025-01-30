@@ -1,6 +1,4 @@
 import { useDispatch, useSelector } from "react-redux"
-import Header from "./Header"
-import Navbar from "./Navbar"
 import { useEffect, useState } from "react"
 import { getProducts } from "../store/actions"
 import { AppDispatch, RootState } from "../store/store"
@@ -9,9 +7,19 @@ import { message, Pagination, Popover } from "antd"
 import ProductModal from "./ProductModal"
 import Cart from "./Cart"
 import Filters from "./Filters"
+import { useOutletContext } from "react-router-dom"
 
+type OutletContextType = {
+  onClose: () => void;
+  open: boolean;
+
+  isModalOpen: boolean
+  showModal: () => void
+  handleCancel: () => void
+};
 
 const Home = () => {
+  const { onClose, open, isModalOpen, showModal, handleCancel } = useOutletContext<OutletContextType>();
 
   const dispatch = useDispatch<AppDispatch>()
   const products = useSelector((state: RootState ) => state.products);
@@ -40,15 +48,7 @@ const Home = () => {
     })
   }
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  
 
   const productsForPage = 6;
   const startIndex = (page - 1) * productsForPage
@@ -58,15 +58,7 @@ const Home = () => {
     setPage(page)
   }
 
-  const [open, setOpen] = useState(false);
-
-  const showDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
+  
 
   useEffect(() => {
     dispatch(getProducts())
@@ -75,9 +67,6 @@ const Home = () => {
   return (
     <div className="w-full min-h-screen font-poppins ">
       {contextHolder}
-      {/* <Navbar/> */}
-
-      {/* <Header showDrawer={showDrawer}/> */}
 
       <div className="mt-5 flex justify-end mr-28 " > 
         <Popover placement="bottomLeft" content={

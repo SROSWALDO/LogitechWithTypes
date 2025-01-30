@@ -4,10 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { useEffect } from "react";
 import {  getProducts } from "../store/actions";
-import { useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import ProductDetail from "./ProductDetail";
 
+type OutletContextType = {
+  showModal: () => void
+};
+
 const Categories = () => {
+  const { showModal} = useOutletContext<OutletContextType>();
   const products = useSelector((state: RootState) => state.products);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -29,9 +34,7 @@ const Categories = () => {
 
       <div className="flex flex-wrap justify-center w-full mb-5">
         {filteredProducts.map(product => (
-            <ProductDetail key={product.id} product={product} showModal={function (): void {
-                throw new Error("Function not implemented.");
-            } } />
+            <ProductDetail key={product.id} product={product} showModal={showModal} />
         ))}
       </div>
     </div>
