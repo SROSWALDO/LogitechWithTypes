@@ -68,7 +68,7 @@ const Cart = ({ open, onClose, deleteProductAlert }: CartProps) => {
             <h1 className="text-2xl font-semibold uppercase">Shopping Cart</h1>
           </div>
 
-          <div className="max-h-[495px] overflow-y-auto shadow-md mb-1 ">
+          <div className="max-h-[490px] overflow-y-auto shadow-md mb-1 ">
             {cart.map((product) => (
               <div
                 className="flex my-3 items-center"
@@ -124,7 +124,7 @@ const Cart = ({ open, onClose, deleteProductAlert }: CartProps) => {
             ))}
           </div>
 
-          <div className="mt-3">
+          <div className="mt-7">
             <p className="font-semibold">
               Subtotal de artículo:{" "}
               <span className="font-normal text-gray-500">
