@@ -27,6 +27,15 @@ export const getProduct = (id: ProductId ) => async (dispatch: Dispatch) => {
     }
 }
 
+export const getProduct2 = () => async (dispatch: Dispatch) => {
+    try {
+        const response = await axios.get(`${URL}/products/1`)
+        dispatch({ type: "GET_PRODUCT2", payload: response.data })
+    } catch (error: any) {
+        console.error(error.message);
+    }
+}
+
 export const getCart = () => async (dispatch: Dispatch) => {
     try {
         const response = await axios.get(`${URL}/cart`)

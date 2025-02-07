@@ -9,12 +9,14 @@ import { RootState } from "../store/store";
 
 type HeaderProps = {
   showDrawer: () => void;
+  showModal: () => void; 
+  handleCancel: () => void;
 };
 
 
 
 
-const Header = ({ showDrawer }: HeaderProps) => {
+const Header = ({ showDrawer, showModal, handleCancel }: HeaderProps) => {
 
   const products = useSelector((state: RootState ) => state.products_copy);
 
@@ -77,7 +79,7 @@ const menuItems: MenuProps["items"] = categories.map((category) => ({
           <span className="font-semibold">Aplican Exclusiónes*</span>
         </p>
 
-        <button className="uppercase bg-white p-4 px-9 mt-4 text-[14px] font-semibold ">
+        <button onClick={showModal} className="uppercase bg-white p-4 px-9 mt-4 text-[14px] font-semibold cursor-pointer hover:opacity-90 ">
           Compra ahora
         </button>
       </div>
