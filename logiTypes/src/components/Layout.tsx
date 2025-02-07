@@ -56,7 +56,7 @@ const Layout = () => {
       <Navbar />
       <Header showDrawer={showDrawer} />
 
-      <Cart open={open} onClose={onClose} deleteProductAlert={deleteProduct}  />
+      <Cart errorAlert={errorAlert} open={open} onClose={onClose} deleteProductAlert={deleteProduct}  />
       <ProductModal isModalOpen={isModalOpen} handleCancel={handleCancel} success={success} errorAlert={errorAlert}  />
 
       <Outlet context={{ onClose, open, isModalOpen, showModal, handleCancel, deleteProduct, showDrawer }} />

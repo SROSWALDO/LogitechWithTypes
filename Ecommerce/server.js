@@ -438,16 +438,30 @@ app.get("/products", (req, res) => {
 
 // Ruta para obtener un producto por ID
 app.get("/products/:id", (req, res) => {
-  const productId = parseInt(req.params.id);
+  const { id } = req.params;
+  const { color } = req.query;
 
-  const product = products.find((p) => p.id === productId);
+  const product = products.find((p) => p.id === Number(id));
 
   if (!product) {
-    return res.status(404).json({ error: "Producto no encontrado" });
+    return res.status(404).json({ message: "Producto no encontrado" });
+  }
+
+  if (color) {
+    const variant = product.variants.find((v) => v.color === color);
+    if (!variant) {
+      return res.status(404).json({ message: `Color '${color}' no encontrado en este producto` });
+    }
+
+    return res.json({
+      ...product,
+      quantity: variant.stock, // Agrega la cantidad del color solicitado
+    });
   }
 
   res.json(product);
 });
+
 
 // Rutas del carrito
 app.get("/cart", (req, res) => {

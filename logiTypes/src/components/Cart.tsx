@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { useAppDispatch } from "./ProductDetail";
 import { useEffect } from "react";
-import { deleteProduct, editProduct, getCart } from "../store/actions";
+import { deleteProduct, editProduct, getCart, getProduct } from "../store/actions";
 import trash from "../assets/trash.svg";
 import { ProductDelete, ProductEdited } from "../types";
 
@@ -11,10 +11,13 @@ type CartProps = {
   open: boolean;
   onClose: () => void;
   deleteProductAlert: () => void;
+  errorAlert: () => void;
 };
 
-const Cart = ({ open, onClose, deleteProductAlert }: CartProps) => {
+const Cart = ({ open, onClose, deleteProductAlert, errorAlert }: CartProps) => {
   const cart = useSelector((state: RootState) => state.cart);
+
+  const productG = useSelector((state: RootState) => state.product);
 
   const dispatch = useAppDispatch();
 
@@ -34,7 +37,20 @@ const Cart = ({ open, onClose, deleteProductAlert }: CartProps) => {
     }
   };
 
-  const handleMoreQuantity = (product: ProductEdited) => {
+  const handleMoreQuantity = async (product: ProductEdited) => {
+    await dispatch(getProduct(product.productId));
+  
+    // Buscar la variante correcta en productG.variants
+    const productVariant = productG?.variants?.find(variant => variant.color === product.color);
+  
+    if (productVariant) {
+      // Verificar si la cantidad supera el stock
+      if (productVariant.stock === 0 ) {
+        errorAlert();
+        return;
+      }
+    }
+  
     dispatch(
       editProduct(product.productId, {
         color: product.color,
@@ -42,6 +58,7 @@ const Cart = ({ open, onClose, deleteProductAlert }: CartProps) => {
       })
     );
   };
+  
 
   const formatToPesos = (amount: number) => {
     return new Intl.NumberFormat("es-MX", {
